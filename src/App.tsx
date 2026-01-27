@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import Tym from "./pages/Tym";
 import Program from "./pages/Program";
 import Uspechy from "./pages/Uspechy";
+import UspechDetail from "./pages/UspechDetail";
 import Zpravodaj from "./pages/Zpravodaj";
 import Kontakt from "./pages/Kontakt";
 import NotFound from "./pages/NotFound";
@@ -24,6 +25,7 @@ const App = () => (
           <Route path="/tym" element={<Tym />} />
           <Route path="/program" element={<Program />} />
           <Route path="/uspechy" element={<Uspechy />} />
+          <Route path="/uspechy/:id" element={<UspechDetail />} />
           <Route path="/zpravodaj" element={<Zpravodaj />} />
           <Route path="/kontakt" element={<Kontakt />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
