@@ -1,13 +1,16 @@
+import { useState } from "react";
 import { useParams, Link, Navigate } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { ArrowLeft, ArrowRight, X, ZoomIn } from "lucide-react";
 import { achievements, getAchievementById } from "@/data/achievements";
 
 const UspechDetail = () => {
   const { id } = useParams<{ id: string }>();
   const achievement = id ? getAchievementById(id) : undefined;
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   if (!achievement) {
     return <Navigate to="/uspechy" replace />;
@@ -34,18 +37,27 @@ const UspechDetail = () => {
           </div>
 
           {/* Main Content */}
-          <div className="mx-auto max-w-3xl">
+          <div className="mx-auto max-w-4xl">
+            {/* Hero Image */}
+            <div className="mb-8 overflow-hidden rounded-xl">
+              <img
+                src={achievement.heroImage}
+                alt={achievement.title}
+                className="w-full h-64 md:h-96 object-cover"
+              />
+            </div>
+
             <Card className="border-2 border-primary/20">
               <CardContent className="p-8 md:p-12">
-                {/* Icon */}
-                <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-xl bg-secondary/10 text-secondary">
-                  <Icon className="h-8 w-8" />
+                {/* Icon & Title */}
+                <div className="flex items-start gap-4 mb-6">
+                  <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl bg-secondary/10 text-secondary">
+                    <Icon className="h-8 w-8" />
+                  </div>
+                  <h1 className="text-2xl font-bold text-foreground md:text-3xl">
+                    {achievement.title}
+                  </h1>
                 </div>
-
-                {/* Title */}
-                <h1 className="mb-6 text-2xl font-bold text-foreground md:text-3xl">
-                  {achievement.title}
-                </h1>
 
                 {/* Full Description */}
                 <div className="prose prose-lg max-w-none text-muted-foreground">
@@ -55,6 +67,31 @@ const UspechDetail = () => {
                     </p>
                   ))}
                 </div>
+
+                {/* Gallery */}
+                {achievement.gallery.length > 0 && (
+                  <div className="mt-10">
+                    <h2 className="text-xl font-semibold text-foreground mb-4">Galerie</h2>
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                      {achievement.gallery.map((image, index) => (
+                        <button
+                          key={index}
+                          onClick={() => setSelectedImage(image)}
+                          className="group relative aspect-video overflow-hidden rounded-lg border-2 border-transparent hover:border-primary transition-all"
+                        >
+                          <img
+                            src={image}
+                            alt={`${achievement.title} - obrázek ${index + 1}`}
+                            className="w-full h-full object-cover transition-transform group-hover:scale-105"
+                          />
+                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center">
+                            <ZoomIn className="h-8 w-8 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </CardContent>
             </Card>
 
@@ -85,6 +122,25 @@ const UspechDetail = () => {
           </div>
         </div>
       </section>
+
+      {/* Image Lightbox */}
+      <Dialog open={!!selectedImage} onOpenChange={() => setSelectedImage(null)}>
+        <DialogContent className="max-w-4xl p-0 border-0 bg-transparent">
+          <button
+            onClick={() => setSelectedImage(null)}
+            className="absolute top-4 right-4 z-50 p-2 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors"
+          >
+            <X className="h-6 w-6" />
+          </button>
+          {selectedImage && (
+            <img
+              src={selectedImage}
+              alt="Zvětšený obrázek"
+              className="w-full h-auto rounded-lg"
+            />
+          )}
+        </DialogContent>
+      </Dialog>
     </Layout>
   );
 };
