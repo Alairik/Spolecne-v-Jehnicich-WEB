@@ -11,12 +11,25 @@ import {
   LucideIcon,
 } from "lucide-react";
 
+// Import images
+import imgModerniWeb from "@/assets/achievements/moderni-web.jpg";
+import imgElektronickaKomunikace from "@/assets/achievements/elektronicka-komunikace.jpg";
+import imgSetkaniSKomunitou from "@/assets/achievements/setkani-s-komunitou.jpg";
+import imgVztahySeSousedy from "@/assets/achievements/vztahy-se-sousedy.jpg";
+import imgKomunitniCentrum from "@/assets/achievements/komunitni-centrum.jpg";
+import imgZbox from "@/assets/achievements/zbox.jpg";
+import imgVerejneProstory from "@/assets/achievements/verejne-prostory.jpg";
+import imgDetskeHriste from "@/assets/achievements/detske-hriste.jpg";
+import imgHlidaniDeti from "@/assets/achievements/hlidani-deti.jpg";
+
 export interface Achievement {
   id: string;
   icon: LucideIcon;
   title: string;
   description: string;
   fullDescription: string;
+  heroImage: string;
+  gallery: string[];
 }
 
 export const achievements: Achievement[] = [
@@ -26,6 +39,8 @@ export const achievements: Achievement[] = [
     title: "Moderní web a správa Facebooku",
     description:
       "Vytvořili jsme přehledné webové stránky a aktivně spravujeme facebookový profil pro lepší informovanost občanů.",
+    heroImage: imgModerniWeb,
+    gallery: [imgModerniWeb],
     fullDescription: `
       Komunikace s občany je pro nás prioritou. Proto jsme vytvořili moderní webové stránky, 
       které přinášejí aktuální informace o dění v obci přehlednou a přístupnou formou.
@@ -43,6 +58,8 @@ export const achievements: Achievement[] = [
     title: "Elektronická komunikace s občany",
     description:
       "Zavedli jsme pravidelný zpravodaj a e-mailovou komunikaci, aby každý věděl o dění v obci.",
+    heroImage: imgElektronickaKomunikace,
+    gallery: [imgElektronickaKomunikace],
     fullDescription: `
       V dnešní době je důležité, aby informace proudily rychle a efektivně. Proto jsme zavedli 
       pravidelný elektronický zpravodaj, který dostáváte přímo do vaší e-mailové schránky.
@@ -59,6 +76,8 @@ export const achievements: Achievement[] = [
     title: "Pravidelná setkání s komunitou",
     description:
       "Pořádáme pravidelná setkání, kde mohou občané sdílet své názory a podněty.",
+    heroImage: imgSetkaniSKomunitou,
+    gallery: [imgSetkaniSKomunitou],
     fullDescription: `
       Věříme, že nejlepší rozhodnutí vznikají společnou diskuzí. Proto pořádáme pravidelná 
       setkání s občany, kde máte možnost přímo se zeptat, navrhnout zlepšení nebo sdílet 
@@ -76,6 +95,8 @@ export const achievements: Achievement[] = [
     title: "Budování vztahů se sousedy",
     description:
       "Navázali jsme spolupráci s okolními obcemi a posilujeme sousedské vztahy.",
+    heroImage: imgVztahySeSousedy,
+    gallery: [imgVztahySeSousedy],
     fullDescription: `
       Jehnice nejsou osamocený ostrov. Jsme součástí širšího regionu a spolupráce s okolními 
       obcemi nám přináší mnoho výhod. Proto jsme aktivně navázali kontakty s vedením 
@@ -93,6 +114,8 @@ export const achievements: Achievement[] = [
     title: "Komunitní centrum",
     description:
       "Podpořili jsme vznik prostoru pro setkávání, vzdělávání a kulturní akce.",
+    heroImage: imgKomunitniCentrum,
+    gallery: [imgKomunitniCentrum],
     fullDescription: `
       Každá komunita potřebuje místo, kde se mohou lidé setkávat, vzdělávat a bavit. 
       Proto jsme podpořili vznik komunitního centra, které slouží všem věkovým skupinám.
@@ -109,6 +132,8 @@ export const achievements: Achievement[] = [
     title: "Z-box v Jehnicích",
     description:
       "Zajistili jsme instalaci výdejního boxu pro pohodlnější doručování zásilek.",
+    heroImage: imgZbox,
+    gallery: [imgZbox],
     fullDescription: `
       Nakupování online je dnes běžnou součástí života. Proto jsme se zasadili o instalaci 
       Z-boxu přímo v Jehnicích, aby občané nemuseli pro zásilky daleko.
@@ -125,6 +150,8 @@ export const achievements: Achievement[] = [
     title: "Zlepšení veřejných prostor",
     description:
       "Iniciovali jsme údržbu zeleně a úpravy veřejných prostranství pro příjemnější prostředí.",
+    heroImage: imgVerejneProstory,
+    gallery: [imgVerejneProstory],
     fullDescription: `
       Příjemné prostředí zvyšuje kvalitu života. Proto jsme iniciovali pravidelnou údržbu 
       veřejné zeleně a úpravy veřejných prostranství.
@@ -142,6 +169,8 @@ export const achievements: Achievement[] = [
     title: "Dětské hřiště",
     description:
       "Přispěli jsme k vybudování bezpečného a moderního hřiště pro nejmenší obyvatele.",
+    heroImage: imgDetskeHriste,
+    gallery: [imgDetskeHriste],
     fullDescription: `
       Děti jsou naší budoucností a zaslouží si bezpečné a podnětné prostředí pro hru. 
       Proto jsme přispěli k vybudování moderního dětského hřiště.
@@ -159,6 +188,8 @@ export const achievements: Achievement[] = [
     title: "Hlídání dětí o prázdninách",
     description:
       "Pomohli jsme zajistit letní hlídání dětí, aby rodiče mohli v klidu pracovat.",
+    heroImage: imgHlidaniDeti,
+    gallery: [imgHlidaniDeti],
     fullDescription: `
       Prázdniny jsou pro děti úžasným časem, ale pro pracující rodiče mohou představovat 
       logistický problém. Proto jsme pomohli zajistit organizované hlídání dětí během 
