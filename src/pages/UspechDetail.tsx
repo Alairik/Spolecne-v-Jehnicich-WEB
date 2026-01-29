@@ -38,14 +38,6 @@ const UspechDetail = () => {
 
           {/* Main Content */}
           <div className="mx-auto max-w-4xl">
-            {/* Hero Image */}
-            <div className="mb-8 overflow-hidden rounded-xl">
-              <img
-                src={achievement.heroImage}
-                alt={achievement.title}
-                className="w-full h-64 md:h-96 object-cover"
-              />
-            </div>
 
             <Card className="border-2 border-primary/20">
               <CardContent className="p-8 md:p-12">
