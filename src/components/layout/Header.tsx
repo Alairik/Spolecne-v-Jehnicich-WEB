@@ -5,12 +5,10 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 const navigation = [
-  { name: "Domů", href: "/" },
   { name: "Tým", href: "/tym" },
   { name: "Program 2026", href: "/program" },
   { name: "Úspěchy", href: "/uspechy" },
   { name: "Zpravodaj", href: "/zpravodaj" },
-  { name: "Kontakt", href: "/kontakt" },
 ];
 
 export function Header() {

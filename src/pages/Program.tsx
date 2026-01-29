@@ -1,4 +1,5 @@
 import { Layout } from "@/components/layout/Layout";
+import { PageHero } from "@/components/PageHero";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Building2,
@@ -14,6 +15,7 @@ import {
   Shield,
   Wifi,
 } from "lucide-react";
+import programHeroImage from "@/assets/heroes/program-hero.jpg";
 
 const programSections = [
   {
@@ -61,19 +63,14 @@ const programSections = [
 const Program = () => {
   return (
     <Layout>
+      <PageHero 
+        image={programHeroImage}
+        title="Program 2026"
+        subtitle="Představujeme naše priority a plány pro nadcházející volební období. Chceme, aby Jehnice byly místem, kde se dobře žije všem generacím."
+      />
+      
       <section className="py-16 md:py-24">
         <div className="container mx-auto px-4">
-          {/* Header */}
-          <div className="mx-auto mb-16 max-w-3xl text-center">
-            <h1 className="mb-6 text-3xl font-bold text-foreground md:text-4xl">
-              Program <span className="text-gradient">2026</span>
-            </h1>
-            <p className="text-lg text-muted-foreground">
-              Představujeme naše priority a plány pro nadcházející volební období. 
-              Chceme, aby Jehnice byly místem, kde se dobře žije všem generacím.
-            </p>
-          </div>
-
           {/* Program Sections */}
           <div className="grid gap-8 lg:grid-cols-2">
             {programSections.map((section) => {

@@ -1,6 +1,8 @@
 import { Layout } from "@/components/layout/Layout";
+import { PageHero } from "@/components/PageHero";
 import { Card, CardContent } from "@/components/ui/card";
 import { User } from "lucide-react";
+import teamHeroImage from "@/assets/heroes/team-hero.jpg";
 
 const teamMembers = [
   {
@@ -38,19 +40,14 @@ const teamMembers = [
 const Tym = () => {
   return (
     <Layout>
+      <PageHero 
+        image={teamHeroImage}
+        title="Náš tým"
+        subtitle="Poznajte lidi, kteří tvoří skupinu Společně v Jehnicích. Spojuje nás láska k obci a odhodlání pracovat pro její lepší budoucnost."
+      />
+      
       <section className="py-16 md:py-24">
         <div className="container mx-auto px-4">
-          {/* Header */}
-          <div className="mx-auto mb-16 max-w-3xl text-center">
-            <h1 className="mb-6 text-3xl font-bold text-foreground md:text-4xl">
-              Náš <span className="text-gradient">tým</span>
-            </h1>
-            <p className="text-lg text-muted-foreground">
-              Poznajte lidi, kteří tvoří skupinu Společně v Jehnicích. Spojuje nás 
-              láska k obci a odhodlání pracovat pro její lepší budoucnost.
-            </p>
-          </div>
-
           {/* Team Grid */}
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {teamMembers.map((member) => (
