@@ -1,10 +1,8 @@
 import { useParams, Link, Navigate } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
-import { PageHero } from "@/components/PageHero";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Download, FileText } from "lucide-react";
 import { newsItems } from "@/data/news";
-import newsletterHeroImage from "@/assets/heroes/newsletter-hero.jpg";
 
 const ZpravodajDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -16,12 +14,6 @@ const ZpravodajDetail = () => {
 
   return (
     <Layout>
-      <PageHero 
-        image={newsletterHeroImage}
-        title={news.title}
-        subtitle={news.date}
-      />
-      
       <section className="py-12 md:py-16">
         <div className="container mx-auto px-4">
           {/* Back Button */}
@@ -35,6 +27,12 @@ const ZpravodajDetail = () => {
           </div>
 
           <div className="mx-auto max-w-3xl">
+            {/* Title */}
+            <h1 className="mb-2 text-2xl font-bold text-foreground md:text-3xl">
+              {news.title}
+            </h1>
+            <p className="mb-8 text-muted-foreground">{news.date}</p>
+
             {/* Content */}
             <div className="prose prose-lg max-w-none">
               <p className="text-lg leading-relaxed text-muted-foreground">
