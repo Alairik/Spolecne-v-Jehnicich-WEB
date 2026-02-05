@@ -1,73 +1,90 @@
-# Welcome to your Lovable project
+# Společně v Jehnicích
 
-## Project info
+Webové stránky politické skupiny Společně v Jehnicích.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+## Technologie
 
-## How can I edit this code?
+- **React 18** + TypeScript
+- **Vite** - build tool
+- **Tailwind CSS** - styling
+- **shadcn/ui** - UI komponenty
+- **Supabase** - backend (databáze + edge functions)
+- **React Query** - data fetching
 
-There are several ways of editing your application.
+## Struktura projektu
 
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```
+src/
+├── pages/          # Stránky aplikace
+├── components/     # React komponenty
+│   ├── layout/     # Layout (Header, Footer)
+│   ├── home/       # Komponenty domovské stránky
+│   └── ui/         # shadcn/ui komponenty
+├── data/           # Statická data (úspěchy, novinky)
+├── hooks/          # Custom React hooks
+├── lib/            # Utility funkce
+├── assets/         # Obrázky a média
+└── integrations/   # Integrace (Supabase)
 ```
 
-**Edit a file directly in GitHub**
+## Instalace
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+```bash
+# Instalace závislostí
+npm install
 
-**Use GitHub Codespaces**
+# Vytvoření .env souboru
+cp .env.example .env
+# Vyplňte Supabase credentials
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Vývoj
 
-## What technologies are used for this project?
+```bash
+# Spuštění dev serveru
+npm run dev
 
-This project is built with:
+# Build pro produkci
+npm run build
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+# Linting
+npm run lint
+```
 
-## How can I deploy this project?
+## Stránky
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+- `/` - Domovská stránka
+- `/tym` - Tým skupiny
+- `/program` - Program
+- `/uspechy` - Galérie úspěchů
+- `/zpravodaj` - Zpravodaj/noviny
+- `/admin` - Administrace článků
 
-## Can I connect a custom domain to my Lovable project?
+## Supabase
 
-Yes, you can!
+Projekt využívá Supabase pro:
+- Databázi článků (PostgreSQL)
+- Edge Functions pro admin API
+- Row Level Security
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+### Databázové tabulky
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+- `articles` - Články zpravodaje
+- `article_documents` - Přílohy k článkům
+- `admin_users` - Admin uživatelé
+
+## Deployment
+
+Projekt je připraven pro deployment na platformy jako:
+- Vercel
+- Netlify
+- Cloudflare Pages
+
+```bash
+npm run build
+# Výstup v dist/ složce
+```
+
+## Licence
+
+MIT
