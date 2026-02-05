@@ -1,10 +1,19 @@
 import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
-import { ChevronLeft, ChevronRight, Users, Trophy, Target } from "lucide-react";
+import { ChevronLeft, ChevronRight, Users, Trophy, Target, LucideIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-const slides = [
+interface Slide {
+  id: number;
+  title: string;
+  description: string;
+  icon: LucideIcon;
+  href: string;
+  bgClass: string;
+}
+
+const SLIDES: Slide[] = [
   {
     id: 1,
     title: "Náš tým",
@@ -31,98 +40,141 @@ const slides = [
   },
 ];
 
+const AUTO_PLAY_INTERVAL = 5000;
+
+function SlideContent({ slide, isActive, position }: {
+  slide: Slide;
+  isActive: boolean;
+  position: "left" | "center" | "right";
+}) {
+  const Icon = slide.icon;
+
+  const translateClass = {
+    left: "-translate-x-full opacity-0",
+    center: "translate-x-0 opacity-100",
+    right: "translate-x-full opacity-0",
+  }[position];
+
+  return (
+    <div
+      className={cn(
+        "absolute inset-0 flex items-center justify-center transition-all duration-500",
+        slide.bgClass,
+        translateClass
+      )}
+    >
+      <div className="container mx-auto px-4 text-center text-primary-foreground">
+        <div className="mx-auto mb-6 h-20 w-20 rounded-full bg-white/20 flex items-center justify-center">
+          <Icon className="h-10 w-10" />
+        </div>
+        <h2 className="mb-4 text-3xl md:text-5xl font-bold">{slide.title}</h2>
+        <p className="mx-auto mb-8 max-w-2xl text-lg md:text-xl opacity-90">
+          {slide.description}
+        </p>
+        <Button
+          asChild
+          size="lg"
+          variant="secondary"
+          className="bg-white text-primary hover:bg-white/90"
+        >
+          <Link to={slide.href}>Zjistit více</Link>
+        </Button>
+      </div>
+    </div>
+  );
+}
+
+function NavigationArrow({ direction, onClick }: {
+  direction: "prev" | "next";
+  onClick: () => void;
+}) {
+  const Icon = direction === "prev" ? ChevronLeft : ChevronRight;
+  const position = direction === "prev" ? "left-4" : "right-4";
+  const label = direction === "prev" ? "Předchozí slide" : "Další slide";
+
+  return (
+    <Button
+      variant="ghost"
+      size="icon"
+      className={cn(
+        "absolute top-1/2 -translate-y-1/2 bg-white/20 text-white hover:bg-white/30",
+        position
+      )}
+      onClick={onClick}
+      aria-label={label}
+    >
+      <Icon className="h-6 w-6" />
+    </Button>
+  );
+}
+
+function DotIndicators({ total, current, onSelect }: {
+  total: number;
+  current: number;
+  onSelect: (index: number) => void;
+}) {
+  return (
+    <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
+      {Array.from({ length: total }).map((_, index) => (
+        <button
+          key={index}
+          onClick={() => onSelect(index)}
+          className={cn(
+            "h-3 rounded-full transition-all",
+            index === current
+              ? "bg-white w-8"
+              : "bg-white/50 w-3 hover:bg-white/70"
+          )}
+          aria-label={`Přejít na slide ${index + 1}`}
+        />
+      ))}
+    </div>
+  );
+}
+
 export function HeroCarousel() {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const nextSlide = useCallback(() => {
-    setCurrentSlide((prev) => (prev + 1) % slides.length);
+  const goToNext = useCallback(() => {
+    setCurrentSlide(prev => (prev + 1) % SLIDES.length);
   }, []);
 
-  const prevSlide = useCallback(() => {
-    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+  const goToPrev = useCallback(() => {
+    setCurrentSlide(prev => (prev - 1 + SLIDES.length) % SLIDES.length);
   }, []);
 
   useEffect(() => {
-    const timer = setInterval(nextSlide, 5000);
+    const timer = setInterval(goToNext, AUTO_PLAY_INTERVAL);
     return () => clearInterval(timer);
-  }, [nextSlide]);
+  }, [goToNext]);
+
+  const getSlidePosition = (index: number): "left" | "center" | "right" => {
+    if (index === currentSlide) return "center";
+    if (index < currentSlide) return "left";
+    return "right";
+  };
 
   return (
     <section className="relative overflow-hidden">
       <div className="relative h-[400px] md:h-[500px]">
-        {slides.map((slide, index) => {
-          const Icon = slide.icon;
-          return (
-            <div
-              key={slide.id}
-              className={cn(
-                "absolute inset-0 flex items-center justify-center transition-all duration-500",
-                slide.bgClass,
-                index === currentSlide
-                  ? "opacity-100 translate-x-0"
-                  : index < currentSlide
-                  ? "opacity-0 -translate-x-full"
-                  : "opacity-0 translate-x-full"
-              )}
-            >
-              <div className="container mx-auto px-4 text-center text-primary-foreground">
-                <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-white/20">
-                  <Icon className="h-10 w-10" />
-                </div>
-                <h2 className="mb-4 text-3xl font-bold md:text-5xl">{slide.title}</h2>
-                <p className="mx-auto mb-8 max-w-2xl text-lg opacity-90 md:text-xl">
-                  {slide.description}
-                </p>
-                <Button
-                  asChild
-                  size="lg"
-                  variant="secondary"
-                  className="bg-white text-primary hover:bg-white/90"
-                >
-                  <Link to={slide.href}>Zjistit více</Link>
-                </Button>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-
-      {/* Navigation Arrows */}
-      <Button
-        variant="ghost"
-        size="icon"
-        className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 text-white hover:bg-white/30"
-        onClick={prevSlide}
-        aria-label="Předchozí slide"
-      >
-        <ChevronLeft className="h-6 w-6" />
-      </Button>
-      <Button
-        variant="ghost"
-        size="icon"
-        className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 text-white hover:bg-white/30"
-        onClick={nextSlide}
-        aria-label="Další slide"
-      >
-        <ChevronRight className="h-6 w-6" />
-      </Button>
-
-      {/* Dots */}
-      <div className="absolute bottom-6 left-1/2 flex -translate-x-1/2 gap-2">
-        {slides.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrentSlide(index)}
-            className={cn(
-              "h-3 w-3 rounded-full transition-all",
-              index === currentSlide
-                ? "bg-white w-8"
-                : "bg-white/50 hover:bg-white/70"
-            )}
-            aria-label={`Přejít na slide ${index + 1}`}
+        {SLIDES.map((slide, index) => (
+          <SlideContent
+            key={slide.id}
+            slide={slide}
+            isActive={index === currentSlide}
+            position={getSlidePosition(index)}
           />
         ))}
       </div>
+
+      <NavigationArrow direction="prev" onClick={goToPrev} />
+      <NavigationArrow direction="next" onClick={goToNext} />
+
+      <DotIndicators
+        total={SLIDES.length}
+        current={currentSlide}
+        onSelect={setCurrentSlide}
+      />
     </section>
   );
 }
