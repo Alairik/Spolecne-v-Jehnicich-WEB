@@ -14,10 +14,22 @@ import {
   Landmark,
   Shield,
   Wifi,
+  LucideIcon,
 } from "lucide-react";
 import programHeroImage from "@/assets/heroes/program-hero.jpg";
 
-const programSections = [
+interface ProgramItem {
+  icon: LucideIcon;
+  text: string;
+}
+
+interface ProgramSection {
+  title: string;
+  icon: LucideIcon;
+  items: ProgramItem[];
+}
+
+const PROGRAM_SECTIONS: ProgramSection[] = [
   {
     title: "Infrastruktura",
     icon: Building2,
@@ -60,57 +72,56 @@ const programSections = [
   },
 ];
 
-const Program = () => {
+function ProgramSectionCard({ section }: { section: ProgramSection }) {
+  const SectionIcon = section.icon;
+
+  return (
+    <Card className="border-2 transition-all hover:border-primary hover:shadow-lg">
+      <CardHeader>
+        <div className="flex items-center gap-3">
+          <div className="h-12 w-12 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+            <SectionIcon className="h-6 w-6" />
+          </div>
+          <CardTitle className="text-xl">{section.title}</CardTitle>
+        </div>
+      </CardHeader>
+      <CardContent>
+        <ul className="space-y-4">
+          {section.items.map((item, index) => {
+            const ItemIcon = item.icon;
+            return (
+              <li key={index} className="flex items-start gap-3">
+                <div className="mt-0.5 h-6 w-6 shrink-0 rounded-full bg-secondary/10 text-secondary flex items-center justify-center">
+                  <ItemIcon className="h-3.5 w-3.5" />
+                </div>
+                <span className="text-muted-foreground">{item.text}</span>
+              </li>
+            );
+          })}
+        </ul>
+      </CardContent>
+    </Card>
+  );
+}
+
+export default function Program() {
   return (
     <Layout>
-      <PageHero 
+      <PageHero
         image={programHeroImage}
         title="Program 2026"
         subtitle="Představujeme naše priority a plány pro nadcházející volební období. Chceme, aby Jehnice byly místem, kde se dobře žije všem generacím."
       />
-      
+
       <section className="py-16 md:py-24">
         <div className="container mx-auto px-4">
-          {/* Program Sections */}
           <div className="grid gap-8 lg:grid-cols-2">
-            {programSections.map((section) => {
-              const SectionIcon = section.icon;
-              return (
-                <Card
-                  key={section.title}
-                  className="border-2 transition-all hover:border-primary hover:shadow-lg"
-                >
-                  <CardHeader>
-                    <div className="flex items-center gap-3">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                        <SectionIcon className="h-6 w-6" />
-                      </div>
-                      <CardTitle className="text-xl">{section.title}</CardTitle>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="space-y-4">
-                      {section.items.map((item, index) => {
-                        const ItemIcon = item.icon;
-                        return (
-                          <li key={index} className="flex items-start gap-3">
-                            <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-secondary/10 text-secondary">
-                              <ItemIcon className="h-3.5 w-3.5" />
-                            </div>
-                            <span className="text-muted-foreground">{item.text}</span>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  </CardContent>
-                </Card>
-              );
-            })}
+            {PROGRAM_SECTIONS.map(section => (
+              <ProgramSectionCard key={section.title} section={section} />
+            ))}
           </div>
         </div>
       </section>
     </Layout>
   );
-};
-
-export default Program;
+}

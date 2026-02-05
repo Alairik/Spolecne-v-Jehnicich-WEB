@@ -1,84 +1,106 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-const navigation = [
-  { name: "Tým", href: "/tym" },
-  { name: "Program 2026", href: "/program" },
-  { name: "Úspěchy", href: "/uspechy" },
-  { name: "Zpravodaj", href: "/zpravodaj" },
-];
+const NAV_ITEMS = [
+  { label: "Tým", path: "/tym" },
+  { label: "Program 2026", path: "/program" },
+  { label: "Úspěchy", path: "/uspechy" },
+  { label: "Zpravodaj", path: "/zpravodaj" },
+] as const;
+
+function Logo() {
+  return (
+    <Link to="/" className="flex items-center gap-3">
+      <div className="h-10 w-10 rounded-full bg-primary flex items-center justify-center">
+        <span className="text-primary-foreground font-bold text-lg">SJ</span>
+      </div>
+      <span className="hidden sm:block font-semibold text-foreground">
+        Společně v Jehnicích
+      </span>
+    </Link>
+  );
+}
+
+function NavLink({ path, label, isActive, onClick }: {
+  path: string;
+  label: string;
+  isActive: boolean;
+  onClick?: () => void;
+}) {
+  return (
+    <Link
+      to={path}
+      onClick={onClick}
+      className={cn(
+        "px-4 py-2 rounded-md text-sm font-medium transition-colors",
+        isActive
+          ? "bg-muted text-primary"
+          : "text-muted-foreground hover:bg-muted hover:text-primary"
+      )}
+    >
+      {label}
+    </Link>
+  );
+}
 
 export function Header() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const location = useLocation();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { pathname } = useLocation();
+
+  const toggleMenu = useCallback(() => {
+    setIsMobileMenuOpen(prev => !prev);
+  }, []);
+
+  const closeMenu = useCallback(() => {
+    setIsMobileMenuOpen(false);
+  }, []);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <nav className="container mx-auto flex h-16 items-center justify-between px-4">
-        {/* Logo */}
-        <Link to="/" className="flex items-center gap-2">
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary">
-            <span className="text-lg font-bold text-primary-foreground">SJ</span>
-          </div>
-          <span className="hidden font-semibold text-foreground sm:block">
-            Společně v Jehnicích
-          </span>
-        </Link>
+      <nav className="container mx-auto px-4 h-16 flex items-center justify-between">
+        <Logo />
 
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex md:gap-1">
-          {navigation.map((item) => (
-            <Link
-              key={item.name}
-              to={item.href}
-              className={cn(
-                "rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-muted hover:text-primary",
-                location.pathname === item.href
-                  ? "bg-muted text-primary"
-                  : "text-muted-foreground"
-              )}
-            >
-              {item.name}
-            </Link>
+        <div className="hidden md:flex gap-1">
+          {NAV_ITEMS.map(item => (
+            <NavLink
+              key={item.path}
+              path={item.path}
+              label={item.label}
+              isActive={pathname === item.path}
+            />
           ))}
         </div>
 
-        {/* Mobile Menu Button */}
         <Button
           variant="ghost"
           size="icon"
           className="md:hidden"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-label={mobileMenuOpen ? "Zavřít menu" : "Otevřít menu"}
+          onClick={toggleMenu}
+          aria-label={isMobileMenuOpen ? "Zavřít menu" : "Otevřít menu"}
         >
-          {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          {isMobileMenuOpen ? (
+            <X className="h-6 w-6" />
+          ) : (
+            <Menu className="h-6 w-6" />
+          )}
         </Button>
       </nav>
 
-      {/* Mobile Navigation */}
-      {mobileMenuOpen && (
-        <div className="border-t bg-background md:hidden">
-          <div className="container mx-auto px-4 py-4">
-            <div className="flex flex-col gap-2">
-              {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  to={item.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={cn(
-                    "rounded-md px-4 py-3 text-base font-medium transition-colors hover:bg-muted",
-                    location.pathname === item.href
-                      ? "bg-muted text-primary"
-                      : "text-muted-foreground"
-                  )}
-                >
-                  {item.name}
-                </Link>
-              ))}
-            </div>
+      {isMobileMenuOpen && (
+        <div className="md:hidden border-t bg-background">
+          <div className="container mx-auto px-4 py-4 flex flex-col gap-2">
+            {NAV_ITEMS.map(item => (
+              <NavLink
+                key={item.path}
+                path={item.path}
+                label={item.label}
+                isActive={pathname === item.path}
+                onClick={closeMenu}
+              />
+            ))}
           </div>
         </div>
       )}
