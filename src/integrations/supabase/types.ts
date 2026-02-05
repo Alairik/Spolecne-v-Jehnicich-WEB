@@ -14,7 +14,95 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      admin_users: {
+        Row: {
+          created_at: string
+          id: string
+          password_hash: string
+          username: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          password_hash: string
+          username: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          password_hash?: string
+          username?: string
+        }
+        Relationships: []
+      }
+      article_documents: {
+        Row: {
+          article_id: string
+          created_at: string
+          id: string
+          title: string
+          url: string
+        }
+        Insert: {
+          article_id: string
+          created_at?: string
+          id?: string
+          title: string
+          url: string
+        }
+        Update: {
+          article_id?: string
+          created_at?: string
+          id?: string
+          title?: string
+          url?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "article_documents_article_id_fkey"
+            columns: ["article_id"]
+            isOneToOne: false
+            referencedRelation: "articles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      articles: {
+        Row: {
+          content: string
+          created_at: string
+          id: string
+          is_featured: boolean
+          perex: string
+          published_date: string
+          slug: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          id?: string
+          is_featured?: boolean
+          perex: string
+          published_date?: string
+          slug: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          id?: string
+          is_featured?: boolean
+          perex?: string
+          published_date?: string
+          slug?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

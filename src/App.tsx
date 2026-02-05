@@ -10,6 +10,8 @@ import Uspechy from "./pages/Uspechy";
 import UspechDetail from "./pages/UspechDetail";
 import Zpravodaj from "./pages/Zpravodaj";
 import ZpravodajDetail from "./pages/ZpravodajDetail";
+import Admin from "./pages/Admin";
+import AdminLogin from "./pages/AdminLogin";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -28,6 +30,8 @@ const App = () => (
           <Route path="/uspechy/:id" element={<UspechDetail />} />
           <Route path="/zpravodaj" element={<Zpravodaj />} />
           <Route path="/zpravodaj/:id" element={<ZpravodajDetail />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/admin/login" element={<AdminLogin />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
