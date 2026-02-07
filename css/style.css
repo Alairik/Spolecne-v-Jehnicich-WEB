@@ -629,9 +629,10 @@ img {
 .team-member {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-  padding: 2rem 0;
-  border-bottom: 1px solid var(--border);
+  gap: 1.5rem;
+  padding: 1.5rem 0;
+  border-bottom: 3px solid transparent;
+  border-image: linear-gradient(90deg, var(--primary), var(--secondary)) 1;
 }
 
 .team-member:last-child {
@@ -642,8 +643,8 @@ img {
   .team-member {
     flex-direction: row;
     align-items: center;
-    gap: 3rem;
-    padding: 3rem 0;
+    gap: 2rem;
+    padding: 2rem 0;
   }
 
   .team-member:nth-child(even) {
@@ -656,12 +657,12 @@ img {
 }
 
 .team-member-photo img {
-  width: 200px;
-  height: 200px;
+  width: 160px;
+  height: 160px;
   border-radius: 50%;
   object-fit: cover;
   object-position: center 20%;
-  border: 4px solid var(--primary);
+  border: 3px solid var(--primary);
   display: block;
   margin: 0 auto;
 }
@@ -670,13 +671,13 @@ img {
   object-fit: contain;
   object-position: center;
   background: var(--muted);
-  padding: 30px;
+  padding: 24px;
 }
 
 @media (min-width: 768px) {
   .team-member-photo img {
-    width: 250px;
-    height: 250px;
+    width: 200px;
+    height: 200px;
   }
 }
 
@@ -696,35 +697,35 @@ img {
 }
 
 .team-member-name {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 700;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
   color: var(--foreground);
 }
 
 .team-member-role {
   color: var(--primary);
   font-weight: 600;
-  font-size: 1rem;
-  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  margin-bottom: 0.75rem;
 }
 
 .team-member-bio {
   color: var(--muted-foreground);
-  line-height: 1.8;
-  font-size: 1rem;
+  line-height: 1.7;
+  font-size: 0.95rem;
 }
 
 .team-member.leader .team-member-photo img {
-  width: 250px;
-  height: 250px;
-  border-width: 5px;
+  width: 200px;
+  height: 200px;
+  border-width: 4px;
 }
 
 @media (min-width: 768px) {
   .team-member.leader .team-member-photo img {
-    width: 300px;
-    height: 300px;
+    width: 240px;
+    height: 240px;
   }
 }
 
