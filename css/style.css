@@ -926,6 +926,12 @@ img {
   margin-bottom: 1rem;
 }
 
+.footer .logo-img {
+  background: white;
+  padding: 4px;
+  border-radius: 6px;
+}
+
 .footer .logo-text {
   color: white;
 }
