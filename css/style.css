@@ -567,6 +567,49 @@ img {
   margin: 0 auto 1rem;
 }
 
+.team-photo {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto 1rem;
+  border: 4px solid var(--primary);
+  display: block;
+}
+
+.team-card-leader {
+  border: 2px solid var(--primary);
+  background: linear-gradient(to bottom, rgba(0, 116, 188, 0.05), transparent);
+}
+
+.team-card-leader .team-photo {
+  width: 180px;
+  height: 180px;
+}
+
+.team-card-leader .team-role {
+  font-weight: 600;
+}
+
+.team-group-section {
+  margin-top: 4rem;
+  text-align: center;
+}
+
+.team-group-photo {
+  max-width: 800px;
+  width: 100%;
+  border-radius: var(--radius);
+  margin: 2rem auto;
+  display: block;
+}
+
+.team-group-caption {
+  max-width: 600px;
+  margin: 0 auto;
+  color: var(--muted-foreground);
+}
+
 .team-name {
   font-size: 1.25rem;
   font-weight: 600;
