@@ -503,13 +503,13 @@ img {
 /* Page Hero */
 .page-hero {
   position: relative;
-  height: 256px;
+  height: 200px;
   overflow: hidden;
 }
 
 @media (min-width: 768px) {
   .page-hero {
-    height: 320px;
+    height: 400px;
   }
 }
 
@@ -517,7 +517,7 @@ img {
   position: absolute;
   inset: 0;
   background-size: cover;
-  background-position: center 30%;
+  background-position: center;
 }
 
 .page-hero-overlay {
