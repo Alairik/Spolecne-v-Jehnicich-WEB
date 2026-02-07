@@ -68,17 +68,9 @@ img {
   gap: 0.75rem;
 }
 
-.logo-circle {
-  width: 40px;
+.logo-img {
   height: 40px;
-  border-radius: 50%;
-  background: var(--primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-weight: bold;
-  font-size: 1rem;
+  width: auto;
 }
 
 .logo-text {
