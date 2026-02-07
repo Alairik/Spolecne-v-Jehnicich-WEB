@@ -791,7 +791,7 @@ img {
 }
 
 .team-member:hover .team-member-info {
-  box-shadow: 0 12px 40px rgba(0, 116, 188, 0.15);
+  box-shadow: 0 12px 40px rgba(0, 116, 188, 0.35);
 }
 
 .team-group-section {
