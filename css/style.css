@@ -4,6 +4,7 @@
 :root {
   --primary: #0074bc;
   --primary-light: #0088dd;
+  --primary-dark: #005a91;
   --secondary: #41ad49;
   --secondary-light: #4fc458;
   --background: #ffffff;
@@ -12,6 +13,10 @@
   --muted-foreground: #64748b;
   --border: #e2e8f0;
   --radius: 0.5rem;
+  --footer-bg: #1a365d;
+  --footer-text: #e2e8f0;
+  --font-heading: 'Montserrat', sans-serif;
+  --font-body: 'Source Sans Pro', sans-serif;
 }
 
 * {
@@ -21,11 +26,16 @@
 }
 
 body {
-  font-family: 'Inter', 'Open Sans', system-ui, -apple-system, sans-serif;
+  font-family: var(--font-body);
   background: var(--background);
   color: var(--foreground);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
 }
 
 a {
@@ -74,8 +84,12 @@ img {
 }
 
 .logo-text {
-  font-weight: 600;
+  font-family: var(--font-heading);
+  font-weight: 700;
   color: var(--foreground);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.9rem;
 }
 
 .nav {
@@ -888,8 +902,8 @@ img {
 
 /* Footer */
 .footer {
-  background: var(--muted);
-  border-top: 1px solid var(--border);
+  background: var(--footer-bg);
+  color: var(--footer-text);
   padding: 3rem 0;
 }
 
@@ -912,14 +926,20 @@ img {
   margin-bottom: 1rem;
 }
 
+.footer .logo-text {
+  color: white;
+}
+
 .footer-description {
-  color: var(--muted-foreground);
+  color: rgba(255, 255, 255, 0.7);
   font-size: 0.875rem;
 }
 
 .footer-title {
+  font-family: var(--font-heading);
   font-weight: 600;
   margin-bottom: 1rem;
+  color: white;
 }
 
 .footer-links {
@@ -931,13 +951,13 @@ img {
 }
 
 .footer-links a {
-  color: var(--muted-foreground);
+  color: rgba(255, 255, 255, 0.7);
   font-size: 0.875rem;
   transition: color 0.2s;
 }
 
 .footer-links a:hover {
-  color: var(--primary);
+  color: var(--secondary-light);
 }
 
 .footer-contact {
@@ -949,31 +969,31 @@ img {
   align-items: center;
   gap: 0.5rem;
   margin-bottom: 0.75rem;
-  color: var(--muted-foreground);
+  color: rgba(255, 255, 255, 0.7);
   font-size: 0.875rem;
 }
 
 .footer-contact svg {
   width: 16px;
   height: 16px;
-  color: var(--primary);
+  color: var(--secondary-light);
 }
 
 .footer-contact a {
-  color: var(--muted-foreground);
+  color: rgba(255, 255, 255, 0.7);
   transition: color 0.2s;
 }
 
 .footer-contact a:hover {
-  color: var(--primary);
+  color: var(--secondary-light);
 }
 
 .footer-bottom {
   margin-top: 2rem;
   padding-top: 2rem;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
   text-align: center;
-  color: var(--muted-foreground);
+  color: rgba(255, 255, 255, 0.5);
   font-size: 0.875rem;
 }
 
