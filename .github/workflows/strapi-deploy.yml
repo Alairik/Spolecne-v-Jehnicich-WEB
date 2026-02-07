@@ -1,0 +1,52 @@
+name: Build from Strapi
+
+on:
+  # Webhook trigger from Strapi
+  repository_dispatch:
+    types: [strapi-update]
+
+  # Manual trigger for testing
+  workflow_dispatch:
+
+  # Optional: Also run on push to main (for manual article updates)
+  push:
+    branches:
+      - main
+    paths:
+      - 'build.js'
+      - 'package.json'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Build articles from Strapi
+        env:
+          STRAPI_URL: ${{ secrets.STRAPI_URL }}
+          STRAPI_TOKEN: ${{ secrets.STRAPI_TOKEN }}
+        run: npm run build
+
+      - name: Check for changes
+        id: git-check
+        run: |
+          git diff --quiet || echo "changes=true" >> $GITHUB_OUTPUT
+
+      - name: Commit and push changes
+        if: steps.git-check.outputs.changes == 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add -A
+          git commit -m "Update articles from Strapi [skip ci]"
+          git push

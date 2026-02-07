@@ -1,0 +1,10 @@
+{
+  "name": "spolecne-v-jehnicich-web",
+  "version": "1.0.0",
+  "description": "Website for Spolecne v Jehnicich",
+  "scripts": {
+    "build": "node build.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
