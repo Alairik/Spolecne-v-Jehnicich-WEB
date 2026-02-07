@@ -926,7 +926,6 @@ img {
   font-size: 0.9rem;
   font-weight: 600;
   border-radius: var(--radius);
-  box-shadow: 0 2px 8px rgba(65, 173, 73, 0.3);
 }
 
 .achievement-badge svg {
@@ -936,7 +935,6 @@ img {
 
 .unfulfilled-badge {
   background: var(--primary);
-  box-shadow: 0 2px 8px rgba(0, 116, 188, 0.3);
 }
 
 /* News */
