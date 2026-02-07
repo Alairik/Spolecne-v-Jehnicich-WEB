@@ -625,6 +625,109 @@ img {
   font-weight: 600;
 }
 
+/* Zig-zag Team Member Layout */
+.team-member {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.team-member:last-child {
+  border-bottom: none;
+}
+
+@media (min-width: 768px) {
+  .team-member {
+    flex-direction: row;
+    align-items: center;
+    gap: 3rem;
+    padding: 3rem 0;
+  }
+
+  .team-member:nth-child(even) {
+    flex-direction: row-reverse;
+  }
+}
+
+.team-member-photo {
+  flex-shrink: 0;
+}
+
+.team-member-photo img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center 20%;
+  border: 4px solid var(--primary);
+  display: block;
+  margin: 0 auto;
+}
+
+.team-member-photo img.placeholder-logo {
+  object-fit: contain;
+  object-position: center;
+  background: var(--muted);
+  padding: 30px;
+}
+
+@media (min-width: 768px) {
+  .team-member-photo img {
+    width: 250px;
+    height: 250px;
+  }
+}
+
+.team-member-info {
+  flex: 1;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .team-member-info {
+    text-align: left;
+  }
+
+  .team-member:nth-child(even) .team-member-info {
+    text-align: right;
+  }
+}
+
+.team-member-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--foreground);
+}
+
+.team-member-role {
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.team-member-bio {
+  color: var(--muted-foreground);
+  line-height: 1.8;
+  font-size: 1rem;
+}
+
+.team-member.leader .team-member-photo img {
+  width: 250px;
+  height: 250px;
+  border-width: 5px;
+}
+
+@media (min-width: 768px) {
+  .team-member.leader .team-member-photo img {
+    width: 300px;
+    height: 300px;
+  }
+}
+
 .team-group-section {
   margin-top: 4rem;
   text-align: center;
